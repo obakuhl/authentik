@@ -113,7 +113,6 @@ filterwarnings = [
 argon2-cffi = "*"
 celery = "*"
 channels = "*"
-channels-redis = "*"
 cryptography = "*"
 dacite = "*"
 deepmerge = "*"
@@ -157,7 +156,7 @@ opencontainers = { git = "https://github.com/vsoch/oci-python", rev = "20d69d9cc
 ] }
 packaging = "*"
 paramiko = "*"
-psycopg = { extras = ["c", "pool"], version = "*" }
+psycopg = { extras = ["c"], version = "*" }
 pydantic = "*"
 pydantic-scim = "*"
 pyjwt = "*"
