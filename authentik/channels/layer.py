@@ -44,10 +44,10 @@ class PostgresChannelLayer(BaseChannelLayer):
         Send a message onto a (general or specific) channel.
         """
         # Typecheck
-        assert isinstance(message, dict), "message is not a dict"
-        assert self.valid_channel_name(channel), "Channel name not valid"
+        assert isinstance(message, dict), "message is not a dict"  # nosec
+        assert self.valid_channel_name(channel), "Channel name not valid"  # nosec
         # Make sure the message does not contain reserved keys
-        assert "__asgi_channel__" not in message
+        assert "__asgi_channel__" not in message  # nosec
         # If it's a process-local channel, strip off local part and stick full name in message
         if "!" in channel:
             message = dict(message.items())
@@ -117,7 +117,7 @@ class PostgresChannelLayer(BaseChannelLayer):
         If more than one coroutine waits on the same channel, the first waiter
         will be given the message when it arrives.
         """
-        assert self.valid_channel_name(channel)
+        assert self.valid_channel_name(channel)  # nosec
 
         channel_key = f"{self.prefix}.{self.non_local_name(channel)}"
 
@@ -161,8 +161,8 @@ class PostgresChannelLayer(BaseChannelLayer):
         """
         Adds the channel name to a group.
         """
-        assert self.valid_group_name(group), "Group name not valid"
-        assert self.valid_channel_name(channel), "Channel name not valid"
+        assert self.valid_group_name(group), "Group name not valid"  # nosec
+        assert self.valid_channel_name(channel), "Channel name not valid"  # nosec
 
         group_key = self._group_key(group)
 
@@ -177,8 +177,8 @@ class PostgresChannelLayer(BaseChannelLayer):
         Removes the channel from the named group if it is in the group;
         does nothing otherwise (does not error)
         """
-        assert self.valid_group_name(group), "Group name not valid"
-        assert self.valid_channel_name(channel), "Channel name not valid"
+        assert self.valid_group_name(group), "Group name not valid"  # nosec
+        assert self.valid_channel_name(channel), "Channel name not valid"  # nosec
 
         group_key = self._group_key(group)
 
@@ -198,7 +198,7 @@ class PostgresChannelLayer(BaseChannelLayer):
         """
         Sends a message to the entire group.
         """
-        assert self.valid_group_name(group), "Group name not valid"
+        assert self.valid_group_name(group), "Group name not valid"  # nosec
 
         group_key = self._group_key(group)
 
