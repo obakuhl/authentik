@@ -86,7 +86,7 @@ export class PromptForm extends ModelForm<Prompt, string> {
                 this.preview = nextPreview;
                 this.previewError = undefined;
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 const parsedError = await parseAPIResponseError(error);
 
                 this.previewError = instanceOfValidationError(parsedError)

@@ -160,7 +160,7 @@ export abstract class AKChart<T> extends AKElement {
 
                 this.chart = this.configureChart(r, ctx);
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 const parsedError = await parseAPIResponseError(error);
                 this.error = parsedError;
             });

@@ -143,7 +143,7 @@ export class SearchSelectBase<T> extends AkControlElement<string> implements ISe
                 this.objects = nextObjects;
                 this.isFetchingData = false;
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 this.isFetchingData = false;
                 this.objects = undefined;
 

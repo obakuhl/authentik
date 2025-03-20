@@ -289,7 +289,7 @@ export abstract class Form<T> extends AKElement {
             .then((response) => {
                 showMessage({
                     level: MessageLevel.success,
-                    message: this.getSuccessMessage(),
+                    title: this.getSuccessMessage(),
                 });
 
                 this.dispatchEvent(
@@ -301,7 +301,7 @@ export abstract class Form<T> extends AKElement {
 
                 return response;
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 if (error instanceof PreventFormSubmit && error.element) {
                     error.element.errorMessages = [error.message];
                     error.element.invalid = true;
@@ -348,7 +348,7 @@ export abstract class Form<T> extends AKElement {
                 }
 
                 showMessage({
-                    message: errorMessage,
+                    title: errorMessage,
                     level: MessageLevel.error,
                 });
 

@@ -67,7 +67,7 @@ export async function me(): Promise<SessionUser> {
 
             return nextSession;
         })
-        .catch(async (error) => {
+        .catch(async (error: unknown) => {
             if (isResponseErrorLike(error)) {
                 const { response } = error;
 

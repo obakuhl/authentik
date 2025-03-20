@@ -11,8 +11,6 @@ import { msg } from "@lit/localize";
 import { PropertyValues, TemplateResult, html, nothing } from "lit";
 import { state } from "lit/decorators.js";
 
-import { ResponseError } from "@goauthentik/api";
-
 export interface AdminStatus {
     icon: string;
     message?: TemplateResult;
@@ -64,7 +62,7 @@ export abstract class AdminStatusCard<T> extends AggregateCard {
                 this.value = value; // Triggers shouldUpdate
                 this.error = undefined;
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 this.status = undefined;
                 this.error = await parseAPIResponseError(error);
             });
@@ -84,7 +82,7 @@ export abstract class AdminStatusCard<T> extends AggregateCard {
                     this.status = status;
                     this.error = undefined;
                 })
-                .catch(async (error: ResponseError) => {
+                .catch(async (error: unknown) => {
                     this.status = undefined;
                     this.error = await parseAPIResponseError(error);
                 });
