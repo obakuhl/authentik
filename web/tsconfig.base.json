@@ -42,6 +42,7 @@
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "useDefineForClassFields": false,
+        "useUnknownInCatchVariables": true,
         "alwaysStrict": true,
         "noImplicitAny": true,
         "plugins": [

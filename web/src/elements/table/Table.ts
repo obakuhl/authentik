@@ -273,7 +273,7 @@ export abstract class Table<T> extends AKElement implements TableLike {
 
                 this.expandedElements = newExpanded;
             })
-            .catch(async (error) => {
+            .catch(async (error: unknown) => {
                 this.error = await parseAPIResponseError(error);
             })
             .finally(() => {

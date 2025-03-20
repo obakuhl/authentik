@@ -68,7 +68,7 @@ export type APIErrorWithResponse = Pick<ResponseError, "response" | "message">;
 /**
  * Type guard to check if an error contains a HTTP {@linkcode Response} object.
  *
- * @see {@linkcode parseAPIError} to parse the response body into a {@linkcode APIError}.
+ * @see {@linkcode parseAPIResponseError} to parse the response body into a {@linkcode APIError}.
  */
 export function isResponseErrorLike(errorLike: unknown): errorLike is APIErrorWithResponse {
     if (!errorLike || typeof errorLike !== "object") return false;
@@ -174,7 +174,7 @@ export async function parseAPIResponseError<T extends APIError = APIError>(
 
             return transformedBody as unknown as T;
         })
-        .catch((transformerError) => {
+        .catch((transformerError: unknown) => {
             console.error("Failed to parse response error body", transformerError);
 
             return createSyntheticGenericError(message || response.statusText) as T;
