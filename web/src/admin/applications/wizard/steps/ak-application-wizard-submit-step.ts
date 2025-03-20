@@ -35,11 +35,7 @@ import {
 } from "@goauthentik/api";
 
 import { ApplicationWizardStep } from "../ApplicationWizardStep.js";
-import {
-    ApplicationTransactionValidationError,
-    OneOfProvider,
-    isApplicationTransactionValidationError,
-} from "../types.js";
+import { OneOfProvider, isApplicationTransactionValidationError } from "../types.js";
 import { providerRenderers } from "./SubmitStepOverviewRenderers.js";
 
 const _submitStates = ["reviewing", "running", "submitted"] as const;
@@ -238,22 +234,20 @@ export class ApplicationWizardSubmitStep extends CustomEmitterElement(Applicatio
     }
 
     renderError() {
-        if (Object.keys(this.wizard.errors).length === 0) {
-            return nothing;
-        }
+        const { errors } = this.wizard;
 
-        const navTo = (step: string) => () => this.dispatchEvent(new WizardNavigationEvent(step));
-        const errors = this.wizard.errors;
+        if (Object.keys(errors).length === 0) return nothing;
+
         return html` <hr class="pf-c-divider" />
-            ${match(errors as ApplicationTransactionValidationError)
+            ${match(errors)
                 .with(
                     { app: P.nonNullable },
                     () =>
                         html`<p>${msg("There was an error in the application.")}</p>
                             <p>
-                                <a @click=${navTo("application")}
-                                    >${msg("Review the application.")}</a
-                                >
+                                <a @click=${WizardNavigationEvent.toListener(this, "application")}>
+                                    ${msg("Review the application.")}
+                                </a>
                             </p>`,
                 )
                 .with(
@@ -261,13 +255,20 @@ export class ApplicationWizardSubmitStep extends CustomEmitterElement(Applicatio
                     () =>
                         html`<p>${msg("There was an error in the provider.")}</p>
                             <p>
-                                <a @click=${navTo("provider")}>${msg("Review the provider.")}</a>
+                                <a @click=${WizardNavigationEvent.toListener(this, "provider")}
+                                    >${msg("Review the provider.")}</a
+                                >
                             </p>`,
                 )
                 .with(
                     { detail: P.nonNullable },
                     () =>
-                        `<p>${msg("There was an error. Please go back and review the application.")}: ${errors.detail}</p>`,
+                        html`<p>
+                            ${msg(
+                                "There was an error. Please go back and review the application.",
+                            )}:
+                            ${errors.detail}
+                        </p>`,
                 )
                 .with(
                     {
@@ -277,7 +278,7 @@ export class ApplicationWizardSubmitStep extends CustomEmitterElement(Applicatio
                         html`<p>${msg("There was an error:")}:</p>
                             <ul>
                                 ${(errors.nonFieldErrors ?? []).map(
-                                    (e: string) => html`<li>${e}</li>`,
+                                    (reason) => html`<li>${reason}</li>`,
                                 )}
                             </ul>
                             <p>${msg("Please go back and review the application.")}</p>`,

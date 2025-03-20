@@ -120,9 +120,9 @@ export class MessageContainer extends AKElement {
 
     render(): TemplateResult {
         return html`<ul class="pf-c-alert-group pf-m-toast">
-            ${this.messages.map((m) => {
+            ${this.messages.map((message) => {
                 return html`<ak-message
-                    .message=${m}
+                    .message=${message}
                     .onRemove=${(m: APIMessage) => {
                         this.messages = this.messages.filter((v) => v !== m);
                         this.requestUpdate();

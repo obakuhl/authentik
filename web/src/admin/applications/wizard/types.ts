@@ -63,7 +63,7 @@ export interface ApplicationWizardState {
     proxyMode: ProxyMode;
     bindings: PolicyBinding[];
     currentBinding: number;
-    errors: ApplicationTransactionValidationError;
+    errors: ValidationError | ApplicationTransactionValidationError;
 }
 
 export interface ApplicationWizardStateUpdate {
