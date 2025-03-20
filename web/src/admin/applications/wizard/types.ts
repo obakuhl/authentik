@@ -1,5 +1,3 @@
-import { APIError } from "@goauthentik/common/errors/network";
-
 import {
     type ApplicationRequest,
     type LDAPProviderRequest,
@@ -36,15 +34,14 @@ export interface ApplicationTransactionValidationError extends ValidationError {
     app?: ValidationRecord;
     provider?: ValidationRecord;
     bindings?: ValidationRecord;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    detail?: any;
+    detail?: unknown;
 }
 
 /**
  * Type-guard to determine if an API response is shaped like an {@linkcode ApplicationTransactionValidationError}.
  */
 export function isApplicationTransactionValidationError(
-    error: APIError,
+    error: ValidationError,
 ): error is ApplicationTransactionValidationError {
     if ("app" in error) return true;
     if ("provider" in error) return true;
