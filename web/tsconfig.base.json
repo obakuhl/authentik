@@ -21,19 +21,7 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
-        "lib": [
-            "ES5",
-            "ES2015",
-            "ES2016",
-            "ES2017",
-            "ES2018",
-            "ES2019",
-            "ES2020",
-            "ESNext",
-            "DOM",
-            "DOM.Iterable",
-            "WebWorker"
-        ],
+        "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
         "noUnusedLocals": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
@@ -66,5 +54,10 @@
             }
         ]
     },
-    "exclude": ["src/**/*.test.ts", "./tests"]
+    "exclude": [
+        // ---
+        "./out/**/*",
+        "src/**/*.test.ts",
+        "./tests"
+    ]
 }

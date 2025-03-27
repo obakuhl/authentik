@@ -1,4 +1,4 @@
-import DOMPurify from "dompurify";
+import * as DOMPurify from "dompurify";
 
 import { render } from "@lit-labs/ssr";
 import { collectResult } from "@lit-labs/ssr/lib/render-result.js";
@@ -14,6 +14,11 @@ export async function renderStatic(input: TemplateResult): Promise<string> {
     return await collectResult(render(input));
 }
 
+/**
+ * Purify a template result using DOMPurify.
+ *
+ * @param input Template result to purify
+ */
 export function purify(input: TemplateResult): TemplateResult {
     return html`${until(
         (async () => {
